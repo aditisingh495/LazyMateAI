@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LazyMate AI — Work Less. Relax More.</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#">
+        <span class="brand-icon">🦥</span>
+        <span><strong>LazyMate</strong><small>YOUR CALM WORKSPACE</small></span>
+      </a>
+
+      <div class="side-label">WORKSPACE</div>
+      <button class="nav-item active" data-view="overview">⌂ Overview</button>
+      <button class="nav-item" data-view="tasks">✓ Task organizer</button>
+      <button class="nav-item" data-view="summarizer">▤ Text summarizer</button>
+      <button class="nav-item" data-view="planner">☼ Easy-day planner</button>
+
+      <div class="sidebar-note">
+        <div class="tiny-sloth">🌿</div>
+        <strong>Slow is still progress.</strong>
+        <p>You don't have to do everything today. Just the next small thing.</p>
+      </div>
+      <div class="sidebar-footer">● Ready when you are</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="mobile-brand">🦥 LazyMate</div>
+        <div class="breadcrumb">Workspace / <strong id="crumb">Overview</strong></div>
+        <div class="top-actions">
+          <span class="local-pill">● Runs in your browser</span>
+          <button class="avatar">LM</button>
+        </div>
+      </header>
+
+      <section class="view active-view" id="overview">
+        <div class="welcome-row">
+          <div>
+            <p class="eyebrow">A LITTLE LESS RUSH, A LITTLE MORE YOU</p>
+            <h1>Make room for <span>easy.</span></h1>
+            <p class="subtitle">Your day doesn't need to be perfect. Let's make it manageable.</p>
+          </div>
+          <div class="sloth-art">
+            <span class="sun">☀</span>
+            <span class="leaf leaf-one">✦</span>
+            <span class="sloth-face">🦥</span>
+            <span class="leaf leaf-two">✿</span>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-top"><span>Tasks on your list</span><span class="stat-icon lilac">☷</span></div>
+            <strong id="totalStat">0</strong><small>One step at a time</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Already completed</span><span class="stat-icon mint">✓</span></div>
+            <strong id="doneStat">0</strong><small id="doneCaption">Every little win counts</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Your current energy</span><span class="stat-icon peach">☼</span></div>
+            <strong id="energyStat">Medium</strong><small>Work with your energy</small>
+          </article>
+        </div>
+
+        <div class="content-grid">
+          <article class="panel">
+            <div class="panel-heading">
+              <div><p class="eyebrow">YOUR NEXT STEPS</p><h2>Today's tasks</h2></div>
+              <button class="text-button" data-go="tasks">View all →</button>
+            </div>
+            <div id="overviewTasks" class="task-list empty-state">No tasks yet. Add one small thing to get started.</div>
+            <button class="primary-button" data-go="tasks">＋ Add a task</button>
+          </article>
+
+          <article class="panel focus-panel">
+            <p class="eyebrow">A GENTLE NUDGE</p>
+            <div class="focus-emoji">🍃</div>
+            <h2>Try the 10-minute rule</h2>
+            <p>Pick one small task and work on it for just ten minutes. When the timer ends, you can stop or keep going.</p>
+            <div class="timer" id="timerDisplay">10:00</div>
+            <div class="timer-actions">
+              <button class="primary-button" id="timerStart">Start focus</button>
+              <button class="secondary-button" id="timerReset">Reset</button>
+            </div>
+            <small class="muted" id="timerMessage">No pressure. Just begin.</small>
+          </article>
+        </div>
+        <p class="footer-note">Made for slower days · Your tasks stay in this browser on this device.</p>
+      </section>
+
+      <section class="view" id="tasks">
+        <div class="page-heading">
+          <p class="eyebrow">CLEAR THE MENTAL CLUTTER</p>
+          <h1>Task organizer <span>✓</span></h1>
+          <p class="subtitle">Get everything out of your head and into one calm list.</p>
+        </div>
+        <article class="panel">
+          <form id="taskForm" class="task-form">
+            <label for="taskInput">What do you need to do?</label>
+            <div class="form-row">
+              <input id="taskInput" maxlength="140" placeholder="e.g. Review today's lecture notes" required>
+              <select id="taskPriority" aria-label="Task priority">
+                <option value="Medium">Medium priority</option>
+                <option value="High">High priority</option>
+                <option value="Low">Low priority</option>
+              </select>
+              <button class="primary-button" type="submit">Add task</button>
+            </div>
+          </form>
+          <div class="organizer-bar">
+            <div><h2>Your list</h2><p id="taskCount">0 tasks</p></div>
+            <select id="taskFilter" aria-label="Filter tasks">
+              <option value="all">All tasks</option>
+              <option value="active">To do</option>
+              <option value="done">Completed</option>
+            </select>
+          </div>
+          <div id="taskList" class="task-list empty-state">Your list is clear. Add a task above when you're ready.</div>
+          <div class="list-footer">
+            <button class="text-button" id="clearDone">Clear completed</button>
+            <span class="muted">Small progress is progress.</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="view" id="summarizer">
+        <div class="page-heading">
+          <p class="eyebrow">LESS READING, MORE CLARITY</p>
+          <h1>Text summarizer <span>▤</span></h1>
+          <p class="subtitle">Turn a long block of text into a quick, readable overview.</p>
+        </div>
+        <div class="content-grid summary-grid">
+          <article class="panel">
+            <label for="sourceText">Paste your text</label>
+            <textarea id="sourceText" rows="11" placeholder="Paste notes, instructions, or an article here..."></textarea>
+            <div class="textarea-footer">
+              <span id="wordCount">0 words</span>
+              <button class="primary-button" id="summarizeBtn">Create summary →</button>
+            </div>
+            <p class="hint">This demo uses simple browser-based text extraction, not a real AI model.</p>
+          </article>
+          <article class="panel result-panel">
+            <div class="panel-heading">
+              <div><p class="eyebrow">YOUR QUICK READ</p><h2>Summary</h2></div>
+              <span class="result-icon">✧</span>
+            </div>
+            <div id="summaryOutput" class="summary-output">
+              <div class="empty-illustration">✎</div>
+              <p>Your summary will appear here. Paste some text and select “Create summary”.</p>
+            </div>
+            <button class="secondary-button" id="copySummary">Copy summary</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="planner">
+        <div class="page-heading">
+          <p class="eyebrow">MAKE TODAY FEEL LIGHTER</p>
+          <h1>Easy-day planner <span>☼</span></h1>
+          <p class="subtitle">Build a gentle plan that fits the time and energy you actually have.</p>
+        </div>
+        <div class="content-grid">
+          <article class="panel">
+            <form id="planForm" class="planner-form">
+              <label for="availableTime">How much time do you have?</label>
+              <select id="availableTime">
+                <option value="15">15 minutes</option>
+                <option value="30" selected>30 minutes</option>
+                <option value="60">1 hour</option>
+                <option value="120">2 hours</option>
+              </select>
+              <label>How's your energy?</label>
+              <div class="energy-options">
+                <label><input type="radio" name="energy" value="Low"><span>😴<b>Low</b><small>Keep it tiny</small></span></label>
+                <label><input type="radio" name="energy" value="Medium" checked><span>🙂<b>Medium</b><small>Steady pace</small></span></label>
+                <label><input type="radio" name="energy" value="High"><span>⚡<b>High</b><small>Ready to go</small></span></label>
+              </div>
+              <label for="planGoal">What's on your mind? <span class="muted">(optional)</span></label>
+              <input id="planGoal" placeholder="e.g. Study for my quiz, tidy my desk..." maxlength="180">
+              <button class="primary-button full-button" type="submit">Make my easy plan ✨</button>
+            </form>
+          </article>
+          <article class="panel plan-result">
+            <p class="eyebrow">YOUR GENTLE GAME PLAN</p>
+            <div id="planOutput">
+              <div class="empty-illustration">☁</div>
+              <h2>There's no rush.</h2>
+              <p>Choose your time and energy, then we'll shape a simple plan for you.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
